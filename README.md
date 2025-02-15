@@ -17,11 +17,11 @@ Manually categorizing research papers is time-consuming and tedious, especially 
 ```
 📦 Automating-Data-Annotation
 ├── 📂 data/                     # Folder containing PDF files
-├── 📜 main.py                   # Core script for extraction & classification
-├── 📜 requirements.txt           # Required dependencies
-├── 📜 config.py                  # API key configuration
-├── 📜 README.md                  # Project documentation
-└── 📜 AnnotatedPapers.csv         # Output file with classified results
+├── 📜 DataAnnotation.py         # Core script for extraction & classification
+├── 📜 requirements.txt          # Required dependencies
+├── 📜 config.py                 # API key configuration
+├── 📜 README.md                 # Project documentation
+└── 📜 AnnotatedPapers.csv       # Output file with classified results
 ```
 
 ### 📥 **Installation & Setup**  
