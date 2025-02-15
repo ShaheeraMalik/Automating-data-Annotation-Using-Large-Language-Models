@@ -1,79 +1,102 @@
-### **README.md**  
+# **Automating data Annotation Using Large Language Models**  
 
-```md
-# 📄 Automating Research Paper Annotation Using Large Language Models (LLMs)  
+## **Overview**  
+This project automates the annotation of research papers by extracting text from PDFs, classifying them into predefined categories using **Google Gemini API**, and storing the results in a CSV file. It processes multiple PDFs efficiently using **multithreading**.  
 
-## 🚀 Project Overview  
-Manually categorizing research papers is time-consuming and tedious, especially when dealing with large datasets. This project automates the **extraction**, **classification**, and **annotation** of research papers using **Google Gemini API** and **multithreading** for speed optimization.  
+## **Features**  
+✅ Extracts **title and abstract** from the first page of each PDF.  
+✅ Classifies papers into **five categories** using Google Gemini API:  
+  - Machine Learning  
+  - Deep Learning  
+  - Optimization  
+  - Computer Vision  
+  - Natural Language Processing (NLP)  
+✅ Handles **API rate limits** with automatic retries.  
+✅ Uses **multithreading** for faster processing.  
+✅ Saves classification results into a **CSV file**.  
 
-### ✨ **Key Features**  
-✅ **Scraped PDFs Processing**: Reads research papers in **PDF format** (originally scraped from NeurIPS).  
-✅ **Text Extraction**: Extracts the **title and abstract** from the first page.  
-✅ **Automated Classification**: Uses **Google Gemini API** to classify papers into predefined categories.  
-✅ **Efficient Storage**: Saves results into a structured **CSV file** for easy access.  
-✅ **Multithreading for Speed**: Speeds up processing by handling multiple PDFs in parallel.  
+---
 
-### 📂 **Project Structure**  
-```
-📦 Automating-Data-Annotation
-├── 📂 data/                     # Folder containing PDF files
-├── 📜 DataAnnotation.py         # Core script for extraction & classification
-├── 📜 requirements.txt          # Required dependencies
-├── 📜 config.py                 # API key configuration
-├── 📜 README.md                 # Project documentation
-└── 📜 AnnotatedPapers.csv       # Output file with classified results
-```
+## **Setup Instructions**  
+### **1. Install Dependencies**  
+Ensure you have **Python 3.8+** installed, then run:  
 
-### 📥 **Installation & Setup**  
-1️⃣ **Clone this repository**  
 ```bash
-git clone https://github.com/yourusername/Automating-Data-Annotation.git
-cd Automating-Data-Annotation
+pip install pymupdf pandas google-generativeai
 ```
-2️⃣ **Create a virtual environment** (Optional but recommended)  
-```bash
-python -m venv env
-source env/bin/activate  # Mac/Linux
-env\Scripts\activate     # Windows
-```
-3️⃣ **Install required dependencies**  
-```bash
-pip install -r requirements.txt
-```
-4️⃣ **Set up API key**  
-- Create a file `config.py` and add your **Google Gemini API key**  
+
+### **2. Configure Google Gemini API**  
+Replace `"YOUR_ACTUAL_API_KEY"` with your **Google Gemini API key** in the script:  
+
 ```python
-API_KEY = "your-google-gemini-api-key"
+genai.configure(api_key="YOUR_ACTUAL_API_KEY")
 ```
 
-### 📌 **Usage**  
-Run the script to start processing research papers:  
+### **3. Set File Paths**  
+Modify the script to set the **input PDF folder** and **output CSV file**:  
+
+```python
+pdf_folder = r"E:\pdfs\2024"  # Path where PDFs are stored
+output_csv = r"D:\AnnotatedPapers.csv"  # Output CSV file path
+```
+
+### **4. Run the Script**  
+Execute the script:  
+
 ```bash
-python main.py
+python script.py
 ```
-- It will read PDFs from the `data/` folder.  
-- Extract **title & abstract** from each paper.  
-- Use **LLM classification** to assign a category.  
-- Save the output in `AnnotatedPapers.csv`.  
 
-### 🎯 **Categories Used for Classification**  
-📌 **Machine Learning**  
-📌 **Deep Learning**  
-📌 **Optimization**  
-📌 **Computer Vision**  
-📌 **Natural Language Processing (NLP)**  
+---
 
-### 🛠 **Challenges Faced**  
-🔸 **PDF Formatting Issues**: Different PDFs have varying text structures, making extraction inconsistent.  
-🔸 **API Rate Limits**: Added **retry logic** with exponential backoff to handle rate limits.  
-🔸 **Processing Speed**: Used **multithreading** to improve efficiency.  
+## **How It Works**  
+1. **Extract Text:** Reads the **first page** of each PDF.  
+2. **Process Title & Abstract:** Identifies the **title** (first line) and **abstract** (next 5 lines).  
+3. **Classify Paper:** Uses **Google Gemini API** to categorize the paper.  
+4. **Store Results:** Appends results to **CSV file** with the following columns:  
+   - **File Name**  
+   - **Title**  
+   - **Abstract**  
+   - **Category**  
+5. **Multithreading:** Uses **ThreadPoolExecutor** to process multiple PDFs simultaneously.  
 
-### 📖 **Learn More**  
-📢 **Read the Blog Post**: [Read here](https://medium.com/@shaheeramalik533/automating-data-annotation-using-large-language-models-llms-40649611ed3d)  
-💼 **LinkedIn Post**: [Check out my experience](http://www.linkedin.com/in/shaheera-malik-35b002318)  
+---
 
-### 🤝 **Contributing**  
-Contributions are welcome! Feel free to submit issues or pull requests.  
+## **Handling API Rate Limits**  
+- If the API quota is exceeded (`429 Too Many Requests`), the script **pauses for 30 seconds** before retrying.  
+- Retries up to **3 times** before marking classification as **"Error"**.  
 
-### 📜 **License**  
-This project is open-source and available under the **MIT License**.  
+---
+
+## **Expected Output**  
+A CSV file (`AnnotatedPapers.csv`) with data in this format:  
+
+| File Name | Title | Abstract | Category |  
+|-----------|-------|----------|----------|  
+| paper1.pdf | A Study on ML | This paper explores ML techniques... | Machine Learning |  
+| paper2.pdf | Deep Vision Models | Recent advancements in vision models... | Deep Learning |  
+
+---
+
+## **Customization**  
+- **Increase Threads:** Adjust `num_threads` in the script for **faster processing**.  
+- **More Categories:** Add more classification labels in the `categories` list.  
+- **Change Abstract Length:** Modify how many lines are extracted from the PDF.  
+
+---
+
+## **Limitations**  
+- Only processes the **first page** of PDFs.  
+- Requires an **active Google Gemini API key**.  
+- Accuracy depends on the **quality of extracted text**.  
+
+---
+
+## **Follow for More Updates 🚀**  
+📖 **Medium:** (https://medium.com/@shaheeramalik533/automating-data-annotation-using-large-language-models-llms-40649611ed3d)  
+💼 **LinkedIn:**(http://www.linkedin.com/in/shaheera-malik-35b002318)  
+
+---
+
+## **License**  
+This project is for **educational purposes**. Modify and use it as needed.  
