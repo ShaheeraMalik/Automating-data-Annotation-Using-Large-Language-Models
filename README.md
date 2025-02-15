@@ -70,7 +70,7 @@ python main.py
 
 ### 📖 **Learn More**  
 📢 **Read the Blog Post**: [Read here](https://medium.com/@shaheeramalik533/automating-data-annotation-using-large-language-models-llms-40649611ed3d)  
-💼 **LinkedIn Post**: [Check out my experience](www.linkedin.com/in/shaheera-malik-35b002318)  
+💼 **LinkedIn Post**: [Check out my experience]("www.linkedin.com/in/shaheera-malik-35b002318")  
 
 ### 🤝 **Contributing**  
 Contributions are welcome! Feel free to submit issues or pull requests.  
